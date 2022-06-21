@@ -1,0 +1,4 @@
+# tidak meyimpan node module
+node_modules/*
+package-lock.json
+.env
