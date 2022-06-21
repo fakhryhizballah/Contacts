@@ -49,7 +49,7 @@ const createContact = async function createContact(payload){
            "names": [
              {
                "givenName": payload.givenName,
-               "familyName": payload.givenName
+               "familyName": payload.familyName
              }
            ],
            "emailAddresses": [

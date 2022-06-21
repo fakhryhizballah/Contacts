@@ -18,8 +18,6 @@ clientMq.on('message', async function (topic, message) {
         }catch(err){
             console.log(err);
         }
-        // const response = async () => {
-        // }
 
     }  
 }
