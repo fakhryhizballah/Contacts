@@ -12,7 +12,7 @@ OAuth2_client.setCredentials({ refresh_token: refreshToken });
 const searchContacts = async function search(payload){
     const tokens = await OAuth2_client.getAccessToken(); 
     // OAuth2_client.setCredentials(tokens);
-    // console.log(tokens);
+  // console.log(tokens);
        var options = {
      'method': 'GET',
       'url': 'https://people.googleapis.com/v1/people:searchContacts?readMask=names,emailAddresses,phoneNumbers&query='+payload.query,
@@ -37,6 +37,7 @@ const searchContacts = async function search(payload){
 }
 const createContact = async function createContact(payload){
     const tokens = await OAuth2_client.getAccessToken();
+  console.log("token :" + tokens.token)
     var options = {
         'method': 'POST',
         'url': 'https://people.googleapis.com/v1/people:createContact',
@@ -76,11 +77,14 @@ const createContact = async function createContact(payload){
            ]
          })
       };
-      console.log(options);
+      // console.log(options);
        request(options, function (error, response, body) {
-           if (error) throw new Error(error);
-           console.log('response: ', response);
-           console.log(body);
+         if (error) throw new Error(error);
+         console.log('error : ' + error);
+         console.log('response erro: ', body.error);
+         console.log('response: ', body.metadata);
+          //  console.log(body);
+          // console.log('erro: ', response);
        });
 }
     

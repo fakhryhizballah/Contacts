@@ -4,7 +4,8 @@ const {createContact, searchContacts} = require('./contacts');
 clientMq.on('message', async function (topic, message) {
     console.log(topic, message.toString());
     if (topic == 'contact/createContact') {
-        console.log(message.toString());
+        // console.log("contact/createContact = " + message.toString())
+        // console.log(message.toString());
         const payload = JSON.parse(message.toString());
         await createContact(payload);
     }
