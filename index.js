@@ -15,7 +15,23 @@ clientMq.on('message', async function (topic, message) {
         };
         console.log(data);
         clientMq.publish('log/dump', JSON.stringify(data));
-        await createContact(payload);
+        try {
+            const Create = await createContact(payload);
+            console.log(Create);
+        } catch (err) {
+            // console.log(typeof err);
+            console.log(err.response.data);
+            console.log(err.code);
+            const data = {
+                level: 4,
+                topic: "Create Contacts : " + err.code,
+                title: topic + message.toString(),
+                value: "data = " + JSON.stringify(err.response.data)
+            };
+            console.log(data);
+            clientMq.publish('log/dump', JSON.stringify(data));
+        }
+
     }
     if (topic == 'contact/searchContacts') {
         // console.log(message.toString());
