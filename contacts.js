@@ -20,16 +20,11 @@ const searchContacts = async function search(payload){
            'Authorization': 'Bearer ' + tokens.token
        }
    };
-   console.log(options);
-    // request(options, function (error, response, body) {
-    //     if (error) throw new Error(error);
-    //     // console.log(body);
-    // }
-    // )
+
     return new Promise(resolve => {
         request(options, function (error, response, body) {
             if(!error)
-            // console.log(body);
+              // console.log(body);
                 resolve(body);
         })
     })
@@ -37,7 +32,7 @@ const searchContacts = async function search(payload){
 }
 const createContact = async function createContact(payload){
     const tokens = await OAuth2_client.getAccessToken();
-  console.log("token :" + tokens.token)
+  // console.log("token :" + tokens.token)
     var options = {
         'method': 'POST',
         'url': 'https://people.googleapis.com/v1/people:createContact',
@@ -79,12 +74,19 @@ const createContact = async function createContact(payload){
       };
       // console.log(options);
        request(options, function (error, response, body) {
-         if (error) throw new Error(error);
-         console.log('error : ' + error);
-         console.log('response erro: ', body.error);
-         console.log('response: ', body.metadata);
-          //  console.log(body);
-          // console.log('erro: ', response);
+         if (error) {
+           console.log('error : ' + error);
+           const data = {
+             level: 4,
+             topic: "Create Contacts : " + err.code,
+             title: JSON.stringify(payload),
+             value: "data = " + JSON.stringify(error)
+           };
+           console.log(data);
+           clientMq.publish('log/dump', JSON.stringify(data));
+         };
+         console.log(body);
+        //  console.log('res: ', response);
        });
 }
     
